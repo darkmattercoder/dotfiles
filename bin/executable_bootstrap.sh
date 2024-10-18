@@ -76,16 +76,19 @@ HOME="${HOME:-$(eval echo ~"$USER")}"
 #
 # Defines two sudo placeholders. One for regular sudo, one that will force password input by using the `-k` option.
 if user_can_sudo; then
-        SUDO_FORCE_PASSWORD="sudo -k && sudo" # -K forces the password prompt
+        SUDO_FORCE_PASSWORD="sudo -k" # -K forces the password prompt
         SUDO="sudo" # remembers password
+else
+        SUDO_FORCE_PASSWORD="true"
 fi
 
 ######################################################################################################
 # End of oh-my-zsh code
 ######################################################################################################
+set -x
 echo "Installing requirements..."
 # first sudo in the script always forces the password
-$SUDO_FORCE_PASSWORD apt-get update && $SUDO apt-get -y install curl git zsh nano locales
+$SUDO_FORCE_PASSWORD && $SUDO apt-get update && $SUDO apt-get -y install curl git zsh nano locales
 
 echo "Ensuring at least one locale en_US.UTF-8 is available by adding it to /etc/locale.gen"
 $SUDO sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
