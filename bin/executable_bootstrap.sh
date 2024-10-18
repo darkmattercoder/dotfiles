@@ -85,7 +85,6 @@ fi
 ######################################################################################################
 # End of oh-my-zsh code
 ######################################################################################################
-set -x
 echo "Installing requirements..."
 # first sudo in the script always forces the password
 $SUDO_FORCE_PASSWORD && $SUDO apt-get update && $SUDO apt-get -y install curl git zsh nano locales
